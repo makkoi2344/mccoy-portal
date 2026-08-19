@@ -4,271 +4,221 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>株式会社マッコイ | 賃貸仲介会社様専用 リアルタイム空室・AD募集ポータル</title>
-  <meta name="description" content="株式会社マッコイが所有・管理する和歌山県内（和歌山市・海南市・新宮市）の賃貸マンション・戸建ての空室情報、募集条件、広告料（AD）、内見予約システムです。">
-  
-  <!-- Tailwind CSS & FontAwesome -->
+  <meta name="description" content="株式会社マッコイ（オーナー直営）の賃貸空室情報・客付けAD条件一覧ポータルです。">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#ecfdf5',
-              100: '#d1fae5',
-              500: '#10b981',
-              600: '#059669',
-              700: '#047857',
-              800: '#065f46',
-              900: '#064e3b',
-            },
-            ad: {
-              50: '#fffbeb',
-              100: '#fef3c7',
-              500: '#f59e0b',
-              600: '#d97706',
-              700: '#b45309',
-            }
-          }
-        }
-      }
-    }
-  </script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;800;900&display=swap');
     body { font-family: 'Noto Sans JP', sans-serif; }
     .badge-vacant { background-color: #dcfce7; color: #15803d; border: 1.5px solid #22c55e; }
     .badge-applied { background-color: #fef3c7; color: #b45309; border: 1.5px solid #f59e0b; }
     .badge-occupied { background-color: #f1f5f9; color: #64748b; border: 1.5px solid #cbd5e1; }
     .ad-pill { background: linear-gradient(135deg, #f59e0b, #ea580c); color: white; }
-    .card-hover:hover { transform: translateY(-3px); transition: all 0.2s ease-in-out; }
   </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col antialiased">
+<body class="bg-slate-100 text-slate-800 min-h-screen flex flex-col">
 
-  <!-- TOP BRAND NAV -->
-  <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-lg border-b border-emerald-800/40">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between items-center h-16">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center font-black text-xl text-white shadow-md">
-            M
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-extrabold text-base sm:text-lg tracking-wide text-white">株式会社マッコイ</span>
-              <span class="hidden sm:inline-block bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-500/30">オーナー直営・B2Bポータル</span>
-            </div>
-            <div class="text-[11px] text-slate-400 font-medium">賃貸仲介業者様専用 リアルタイム空室確認・AD情報・内見窓口</div>
-          </div>
+  <!-- HEADER -->
+  <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center font-black text-xl text-white shadow">M</div>
+        <div>
+          <div class="font-extrabold text-base sm:text-lg text-white">株式会社マッコイ <span class="text-emerald-400 text-xs font-normal">オーナー直営ポータル</span></div>
+          <div class="text-[11px] text-slate-400">賃貸仲介業者様専用 リアルタイム空室・AD情報・内見予約</div>
         </div>
-
-        <div class="flex items-center gap-2.5">
-          <button onclick="scrollToOwnerPanel()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-900 transition flex items-center gap-1.5 shadow">
-            <i class="fa-solid fa-sliders text-sm"></i>
-            <span>オーナー管理パネル</span>
-          </button>
-          <a href="#inquiry-section" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-bold shadow transition flex items-center gap-1.5">
-            <i class="fa-solid fa-key"></i>
-            <span class="hidden sm:inline">即時内見・物確</span><span class="sm:hidden">内見予約</span>
-          </a>
-        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="scrollToOwner()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-900 shadow flex items-center gap-1">
+          <i class="fa-solid fa-sliders"></i><span>オーナー管理</span>
+        </button>
+        <a href="#inquiry" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3.5 py-1.5 rounded-lg text-xs font-bold shadow flex items-center gap-1">
+          <i class="fa-solid fa-key"></i><span>内見・物確</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <!-- 1. OWNER ADMIN CONTROL DASHBOARD (初期状態で大きく常時展開) -->
-  <section id="ownerDashboardSection" class="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 text-slate-900 p-4 sm:p-6 shadow-xl border-b-4 border-amber-700">
-    <div class="max-w-7xl mx-auto">
-      <div class="bg-white/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 shadow-2xl border border-white">
-        
-        <!-- Header Row -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow">
-              <i class="fa-solid fa-user-shield"></i>
-            </div>
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="bg-amber-100 text-amber-900 text-xs font-black px-2 py-0.5 rounded-full border border-amber-300">OWNER CONSOLE</span>
-                <h2 class="text-xl sm:text-2xl font-black text-slate-900">オーナー専用 家賃・空室管理コントロールパネル</h2>
-              </div>
-              <p class="text-xs text-slate-600 mt-0.5">
-                代表取締役 舛田 拓 様用：空室ステータス切替・募集賃料変更・AD設定・スプレッドシート同期が即座に行えます。
-              </p>
-            </div>
-          </div>
-
-          <!-- View Toggle & Sync Status -->
-          <div class="flex flex-wrap items-center gap-2">
-            <button onclick="syncFromGasAPI()" id="syncBtn" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow transition flex items-center gap-1.5">
-              <i class="fa-solid fa-arrows-rotate" id="syncIcon"></i>
-              <span>スプレッドシートから再読込</span>
-            </button>
-            <button onclick="toggleOwnerView()" id="toggleViewBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl shadow transition flex items-center gap-1.5">
-              <i class="fa-solid fa-eye"></i>
-              <span id="viewModeText">業者公開プレビュー表示へ</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Portfolio Metrics Summary -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3 mt-4">
-          <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
-            <div class="text-[11px] font-bold text-slate-500">所有管理物件数</div>
-            <div class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">12 <span class="text-xs font-normal">物件 (79戸)</span></div>
-          </div>
-          <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
-            <div class="text-[11px] font-bold text-emerald-800">現在募集中（即入居可）</div>
-            <div class="text-xl sm:text-2xl font-black text-emerald-700 mt-0.5" id="ownerVacantCount">-- <span class="text-xs font-normal">室</span></div>
-          </div>
-          <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl">
-            <div class="text-[11px] font-bold text-amber-800">商談中 / 内見予約</div>
-            <div class="text-xl sm:text-2xl font-black text-amber-700 mt-0.5" id="ownerAppliedCount">-- <span class="text-xs font-normal">室</span></div>
-          </div>
-          <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl">
-            <div class="text-[11px] font-bold text-blue-800">平均入居率</div>
-            <div class="text-xl sm:text-2xl font-black text-blue-700 mt-0.5" id="ownerOccupancyRate">--%</div>
-          </div>
-          <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl col-span-2 sm:col-span-4 lg:col-span-1">
-            <div class="text-[11px] font-bold text-purple-800">連動スプレッドシート</div>
-            <div class="text-xs font-bold text-purple-900 mt-1 truncate">
-              <a href="https://docs.google.com/spreadsheets/d/1DtNovGj2Otd8eRGkLNWMkrCZRYFfRSWBWoBXz1kSlMk/edit" target="_blank" class="underline hover:text-purple-700">
-                202608_家賃明細_OKF <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Quick Instructions for Owner -->
-        <div class="mt-4 p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-xs text-amber-950 flex items-start gap-2">
-          <i class="fa-solid fa-lightbulb text-amber-600 text-base mt-0.5"></i>
+  <!-- 1. OWNER ADMIN CONTROL PANEL (上部に大型配置) -->
+  <section id="ownerPanel" class="bg-gradient-to-r from-amber-500 via-amber-600 to-orange-600 text-slate-900 p-4 sm:p-6 shadow-lg border-b-4 border-amber-700">
+    <div class="max-w-7xl mx-auto bg-white/95 backdrop-blur rounded-2xl p-5 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center text-2xl shadow"><i class="fa-solid fa-user-shield"></i></div>
           <div>
-            <span class="font-bold">オーナー操作ガイド:</span>
-            下部の各物件カード内にある <span class="bg-emerald-100 font-bold px-1.5 py-0.5 rounded text-emerald-800">【空室】</span> <span class="bg-amber-100 font-bold px-1.5 py-0.5 rounded text-amber-800">【商談】</span> <span class="bg-slate-200 font-bold px-1.5 py-0.5 rounded text-slate-800">【成約】</span> ボタンを押すだけで、仲介業者向け画面の表示が即座に切り替わります。また <i class="fa-solid fa-pen text-blue-600"></i> アイコンで賃料やAD%の変更が可能です。
+            <div class="flex items-center gap-2">
+              <span class="bg-amber-100 text-amber-900 text-xs font-black px-2 py-0.5 rounded border border-amber-300">OWNER CONSOLE</span>
+              <h2 class="text-xl font-black text-slate-900">オーナー専用 家賃・空室管理コントロールパネル</h2>
+            </div>
+            <p class="text-xs text-slate-600 mt-0.5">舛田様用：空室ステータス切替・募集賃料変更・AD設定がリアルタイムに行えます。</p>
           </div>
         </div>
-
+        <div class="flex items-center gap-2">
+          <button onclick="syncGas()" id="syncBtn" class="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold rounded-xl shadow flex items-center gap-1.5">
+            <i class="fa-solid fa-arrows-rotate" id="syncIcon"></i><span>スプレッドシートから再読込</span>
+          </button>
+          <button onclick="toggleView()" id="viewToggleBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold rounded-xl shadow flex items-center gap-1.5">
+            <i class="fa-solid fa-eye"></i><span id="viewModeLabel">業者公開表示へ</span>
+          </button>
+        </div>
+      </div>
+      <!-- Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-3 mt-4 text-center sm:text-left">
+        <div class="bg-slate-50 border border-slate-200 p-3 rounded-xl">
+          <div class="text-[11px] font-bold text-slate-500">管理物件数</div>
+          <div class="text-xl font-black text-slate-900 mt-0.5">12 <span class="text-xs font-normal">物件 (79戸)</span></div>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl">
+          <div class="text-[11px] font-bold text-emerald-800">現在募集中（即入居可）</div>
+          <div class="text-xl font-black text-emerald-700 mt-0.5" id="metricVacant">-- 室</div>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl">
+          <div class="text-[11px] font-bold text-amber-800">商談中 / 内見予約</div>
+          <div class="text-xl font-black text-amber-700 mt-0.5" id="metricApplied">-- 室</div>
+        </div>
+        <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl">
+          <div class="text-[11px] font-bold text-blue-800">平均入居率</div>
+          <div class="text-xl font-black text-blue-700 mt-0.5" id="metricOcc">--%</div>
+        </div>
+        <div class="bg-purple-50 border border-purple-200 p-3 rounded-xl col-span-2 sm:col-span-4 lg:col-span-1">
+          <div class="text-[11px] font-bold text-purple-800">連動シート</div>
+          <div class="text-xs font-bold text-purple-900 mt-1 truncate">
+            <a href="https://docs.google.com/spreadsheets/d/1DtNovGj2Otd8eRGkLNWMkrCZRYFfRSWBWoBXz1kSlMk/edit" target="_blank" class="underline">202608_家賃明細_OKF <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. BROKER MARKETING HERO & PROMOTION BAR -->
-  <section class="bg-slate-900 text-white py-8 px-4 sm:px-6 lg:px-8 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-        
-        <div class="lg:col-span-2">
-          <div class="flex flex-wrap items-center gap-2 mb-2.5">
-            <span class="px-2.5 py-1 rounded bg-red-600 text-white text-xs font-black tracking-wider uppercase">客付け業者様 歓迎</span>
-            <span class="px-2.5 py-1 rounded bg-amber-500 text-slate-950 text-xs font-black">AD 100%〜200%（即時精算）</span>
-            <span class="px-2.5 py-1 rounded bg-emerald-500 text-slate-950 text-xs font-black">内見当日即対応</span>
-          </div>
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
-            和歌山・新宮・海南エリア 募集物件・AD条件一覧
-          </h1>
-          <p class="mt-2 text-slate-300 text-xs sm:text-sm leading-relaxed">
-            株式会社マッコイ（オーナー直営）の最新空室募集カタログです。全物件 <strong class="text-amber-400">敷金・礼金0円相談可 / 保証会社利用可 / 法人契約・社宅相談歓迎</strong>。現地キーボックス設置済みにつき、即日内見可能です。
-          </p>
+  <!-- 2. BROKER MARKETING HERO -->
+  <section class="bg-slate-900 text-white py-6 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="px-2 py-0.5 rounded bg-red-600 text-white text-xs font-black">客付け業者様 歓迎</span>
+          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-xs font-black">AD 100%〜200%（即時精算）</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-500 text-slate-950 text-xs font-black">即日内見対応</span>
         </div>
-
-        <div class="bg-slate-800/90 border border-slate-700 p-4 rounded-2xl shadow-lg text-xs space-y-2">
-          <div class="font-bold text-amber-400 text-sm flex items-center gap-1.5 pb-2 border-b border-slate-700">
-            <i class="fa-solid fa-handshake"></i> 仲介会社様へのお約束
-          </div>
-          <div class="flex items-center gap-2 text-slate-200">
-            <i class="fa-solid fa-check text-emerald-400"></i>
-            <span><strong>AD（広告料）:</strong> 成約時即日〜翌週スピード精算</span>
-          </div>
-          <div class="flex items-center gap-2 text-slate-200">
-            <i class="fa-solid fa-check text-emerald-400"></i>
-            <span><strong>物確・内見:</strong> 365日Web/電話で即時開錠番号案内</span>
-          </div>
-          <div class="flex items-center gap-2 text-slate-200">
-            <i class="fa-solid fa-check text-emerald-400"></i>
-            <span><strong>条件交渉:</strong> フリーレント・初期費用分割など柔軟対応</span>
-          </div>
-        </div>
-
+        <h1 class="text-xl sm:text-2xl font-black text-white">和歌山市・海南市・新宮市 空室募集カタログ</h1>
+      </div>
+      <div class="text-xs text-slate-300 bg-slate-800 px-4 py-2 rounded-xl border border-slate-700">
+        全物件 <strong class="text-amber-400">敷金・礼金0円相談可 / 保証会社利用可 / キーボックス現地設置済</strong>
       </div>
     </div>
   </section>
 
-  <!-- 3. SEARCH, FILTER & PROPERTY CATALOG -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
-    
-    <!-- FILTER BAR -->
-    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 mb-8">
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-        
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 flex-1">
-          <!-- Area -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-location-dot text-emerald-600"></i> エリア
-            </label>
-            <select id="filterArea" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-              <option value="all">すべてのエリア</option>
-              <option value="和歌山市">和歌山市</option>
-              <option value="新宮市">新宮市</option>
-              <option value="海南市">海南市</option>
-            </select>
-          </div>
-
-          <!-- Type -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-house text-emerald-600"></i> 間取り・種別
-            </label>
-            <select id="filterType" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-              <option value="all">すべての種別</option>
-              <option value="単身">単身向け (1K/1R)</option>
-              <option value="ファミリー">ファミリー・2DK/2LDK</option>
-              <option value="戸建">戸建て借家</option>
-            </select>
-          </div>
-
-          <!-- Price -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-yen-sign text-emerald-600"></i> 賃料上限
-            </label>
-            <select id="filterPrice" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-              <option value="all">上限なし</option>
-              <option value="35000">〜35,000円</option>
-              <option value="45000">〜45,000円</option>
-              <option value="60000">〜60,000円</option>
-            </select>
-          </div>
-
-          <!-- Status -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-              <i class="fa-solid fa-door-open text-emerald-600"></i> 募集ステータス
-            </label>
-            <select id="filterStatus" onchange="applyFilters()" class="w-full bg-slate-50 border border-slate-300 rounded-lg px-3 py-2 text-xs sm:text-sm font-semibold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-              <option value="vacant_only">募集中（即入居可）のみ</option>
-              <option value="all">全室（商談中・満室含む）</option>
-            </select>
-          </div>
+  <!-- 3. SEARCH & CATALOG -->
+  <main class="max-w-7xl mx-auto px-4 py-6 flex-1 w-full">
+    <!-- Filter -->
+    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 mb-6">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">エリア</label>
+          <select id="selArea" onchange="filterData()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="all">すべてのエリア</option>
+            <option value="和歌山市">和歌山市</option>
+            <option value="新宮市">新宮市</option>
+            <option value="海南市">海南市</option>
+          </select>
         </div>
-
-        <!-- Keyword Input -->
-        <div class="lg:w-72">
-          <label class="block text-xs font-bold text-slate-700 mb-1 flex items-center gap-1">
-            <i class="fa-solid fa-magnifying-glass text-emerald-600"></i> フリーワード検索
-          </label>
-          <div class="relative">
-            <input type="text" id="filterKeyword" oninput="applyFilters()" placeholder="物件名、号室、設備など..." class="w-full bg-slate-50 border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-xs sm:text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
-            <i class="fa-solid fa-search absolute left-3 top-3 text-slate-400 text-xs"></i>
-          </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">間取り・種別</label>
+          <select id="selType" onchange="filterData()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="all">すべての種別</option>
+            <option value="単身">単身 (1K/1R)</option>
+            <option value="ファミリー">ファミリー (2DK/2LDK)</option>
+            <option value="戸建">戸建て</option>
+          </select>
         </div>
-
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">賃料上限</label>
+          <select id="selPrice" onchange="filterData()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="all">上限なし</option>
+            <option value="35000">〜3.5万円</option>
+            <option value="45000">〜4.5万円</option>
+            <option value="60000">〜6.0万円</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ステータス</label>
+          <select id="selStatus" onchange="filterData()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-xs font-bold focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+            <option value="vacant_only">募集中（即入居可）のみ</option>
+            <option value="all">全室（満室含む）</option>
+          </select>
+        </div>
       </div>
+    </div>
 
-      <!-- Feature Tags -->
-      <div class="mt-4 pt-3 border-t border-slate-100 flex flex-wrap items-center gap-2">
-        <span class="text-xs font-bold text-slate-500 mr-1"><i class="fa-solid fa-filter mr-1"></i>条件絞り込み:</span>
-        <button onclick="toggleTagFilter('敷金礼金0')" class="tag-btn text-xs px-3 py-1 rounded-full border border-slate-200 hover:border-emerald-500 hover:text-emerald-700 bg-slate-50 text-slate-700 font-bold transition" data-tag="敷金礼金0">敷金・礼金0円</button>
-        <button onclick="toggleTagFilter('AD200%')" class="tag-btn text-xs px-3 py-1 rounded-full border border-slate-200 hover:border-amber-500 hover:text-amber-7
+    <!-- Grid -->
+    <div id="propGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <!-- 4. INQUIRY -->
+    <section id="inquiry" class="mt-12 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-xl sm:text-2xl font-black text-slate-900">賃貸仲介業者様 専用 物確・内見受付窓口</h2>
+        <p class="text-xs text-slate-600 mt-1 mb-6">キーボックス番号照会・内見予約・AD確認・申込書類送付先</p>
+        <div class="bg-slate-900 text-white rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-left">
+            <div class="text-xs font-bold text-amber-400">株式会社マッコイ (代表: 舛田 拓)</div>
+            <div class="text-lg sm:text-xl font-black text-white mt-1"><i class="fa-solid fa-phone text-emerald-400 mr-2"></i>090-5134-6744</div>
+            <div class="text-xs text-slate-300 mt-0.5"><i class="fa-solid fa-envelope mr-2"></i>makkoi2344@gmail.com</div>
+          </div>
+          <div class="flex gap-2 w-full sm:w-auto">
+            <a href="tel:09051346744" class="flex-1 sm:flex-none text-center px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl shadow">電話確認</a>
+            <button onclick="copyTpl()" class="flex-1 sm:flex-none px-4 py-2.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold rounded-xl shadow">文面コピー</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 text-xs py-6 text-center">
+    © 2026 株式会社マッコイ (和歌山県和歌山市中之島303-5)
+  </footer>
+
+  <script>
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbx6S5FQ8urn36_e-NRwcUXiiT9-C_2miJV9Jti2Lj3Y-z_i35_bsdhmyrSkxBAGsP8n/exec";
+
+    const PROPS = [
+      {
+        id: 'otui', name: '乙井マンション', area: '和歌山市', address: '和歌山市手平5丁目12-5', type: '単身',
+        structure: '木造2階建 (全30戸)', station: 'JR宮前駅 徒歩8分', adRate: '100%〜',
+        image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+        units: [
+          { room: '7号室', layout: '1K (20㎡)', rent: 34000, status: 'vacant', ad: '100%', feat: 'エアコン・南向き・即入居可' },
+          { room: '18号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '角部屋・フローリング・照明付' },
+          { room: '19号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '2階・室内洗濯機置場' },
+          { room: '20号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '2階角部屋・静環境' },
+          { room: '22号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '日当たり良好・単身向け' },
+          { room: '24号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: 'リフォーム済・即日案内可' },
+          { room: '25号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '2階・初期費用格安' },
+          { room: '26号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '室内美装済' },
+          { room: '27号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '静閑な住環境' },
+          { room: '28号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '単身最適・近隣駐車場有' },
+          { room: '29号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '南向き日当たり良好' },
+          { room: '30号室', layout: '1K (20㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '最上階角部屋' }
+        ]
+      },
+      {
+        id: 'kitajima', name: '北嶋マンション', area: '新宮市', address: '新宮市三輪崎2丁目3-16', type: 'ファミリー',
+        structure: 'RC造4階建 (全16戸)', station: 'JR三輪崎駅 徒歩5分', adRate: '100%〜200%',
+        image: 'https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=800&q=80',
+        units: [
+          { room: '101号室', layout: '2DK (40㎡)', rent: 35000, status: 'vacant', ad: '200%', feat: '1階・倉庫/事務所利用可・駐車場有・高AD200%' },
+          { room: '102号室', layout: '2DK (40㎡)', rent: 35000, status: 'vacant', ad: '200%', feat: '1階・車いす相談可・広々2DK・高AD200%' },
+          { room: '105号室', layout: '2DK (40㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '南向き・法人社宅利用歓迎' },
+          { room: '405号室', layout: '2DK (40㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '4階最上階・オーシャンビュー眺望良好' }
+        ]
+      },
+      {
+        id: 'chuo', name: '中央サンハイツ', area: '新宮市', address: '新宮市井の沢6-7', type: 'ファミリー',
+        structure: '鉄骨造3階建 (全16戸)', station: '新宮駅 車6分', adRate: '100%',
+        image: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=800&q=80',
+        units: [
+          { room: '1-C号室', layout: '2DK (38㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '1階・南向き・日当たり良好' },
+          { room: '1-D号室', layout: '2DK (38㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '2DK・室内洗濯機置場・即内見可' },
+          { room: 'A棟201号室', layout: '2DK (38㎡)', rent: 38000, status: 'vacant', ad: '100%', feat: '2階角部屋・風通し良好' },
+          { room: 'A棟202号室', layout: '2DK (38㎡)', rent: 38000, status: 'vacant', ad: '100%', feat: '2階・2人入居可' },
+          { room: 'B棟101号室', layout: '2DK (38㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '1階・法人社宅相談可' },
+          { room: 'B棟102号室', layout: '2DK (38㎡)', rent: 35000, status: 'vacant', ad: '100%', feat: '1階・即入居可' },
+          { room: 'B棟201号室', layout: '2DK (38㎡)', rent: 38000, status: 'vacant', ad: '
