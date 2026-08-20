@@ -2,66 +2,121 @@
 
 
 
+
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>McCoy B2B Leasing Portal &amp; Owner Admin</title>
+    <title>株式会社マッコイ オーナー直営ポータル</title>
     <style>
-        :root { --primary: #1a73e8; --accent: #b10202; --bg: #f8f9fa; --card-bg: #ffffff; }
-        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: #333; margin: 0; padding: 0; }
-        .header { background: #333; color: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; }
-        .admin-console { background: #fff; border-bottom: 2px solid #ddd; padding: 20px 5%; margin-bottom: 20px; }
-        .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; margin-top: 10px; }
-        .metric-card { background: #f0f4f8; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #d1d9e0; }
-        .broker-hero { background: linear-gradient(135deg, #fff5f5, #fff); padding: 40px 5%; border-left: 10px solid var(--accent); margin: 20px 5%; border-radius: 8px; }
-        .ad-pill { background: var(--accent); color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
-        .filter-bar { background: white; padding: 15px 5%; margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap; border-bottom: 1px solid #eee; }
-        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px; padding: 0 5% 40px; }
-        .property-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #eee; }
-        .card-content { padding: 20px; }
-        .status-badge { font-size: 0.8rem; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
-        .status-vacant { background: #d4edbc; color: #11734b; }
-        .sync-btn { background: var(--primary); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; }
+        :root { --primary: #1a73e8; --accent: #b10202; --bg: #f4f7f6; --text: #333; }
+        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
+        .header { background: #2c3e50; color: white; padding: 1.5rem 5%; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .top-banner { background: white; margin: 20px 5%; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 15px 0; }
+        .stat-item { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #e9ecef; }
+        .stat-item strong { display: block; font-size: 1.4rem; color: var(--primary); }
+        .broker-banner { background: linear-gradient(90deg, var(--accent), #d32f2f); color: white; padding: 20px 5%; margin: 20px 0; text-align: center; font-weight: bold; font-size: 1.2rem; }
+        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 0 5% 40px; }
+        .property-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 6px 12px rgba(0,0,0,0.08); border: 1px solid #eee; transition: transform 0.2s; }
+        .property-card:hover { transform: translateY(-5px); }
+        .card-img { width: 100%; height: 200px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.9rem; }
+        .card-body { padding: 20px; }
+        .badge { background: #e8f0fe; color: #1967d2; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
+        .ad-pill { background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+        .footer-section { background: #fff; padding: 40px 5%; border-top: 2px solid #eee; margin-top: 40px; }
+        .btn { background: var(--primary); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-block; margin-top: 10px; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="branding"><strong>McCoy</strong> Leasing Portal</div>
-        <nav>Dashboard | Properties | Support</nav>
+        <h1>株式会社マッコイ オーナー直営ポータル</h1>
     </header>
-    <section class="admin-console">
-        <div style="display:flex; justify-content:space-between;">
-            <h2>Owner Admin Dashboard</h2>
-            <div>
-                <button>View Mode: Manager</button>
-                <a href="https://script.google.com/macros/s/AKfycbx6S5FQ8urn36_e-NRwcUXiiT9-C_2miJV9Jti2Lj3Y-z_i35_bsdhmyrSkxBAGsP8n/exec" class="sync-btn">GAS Sync</a>
+    <section class="top-banner">
+        <h2>家賃・空室管理コントロールパネル</h2>
+        <div class="stats-grid">
+            <div class="stat-item"><small>総管理物件数</small><strong>12物件/79戸</strong></div>
+            <div class="stat-item"><small>現在募集中</small><strong>23室</strong></div>
+            <div class="stat-item"><small>平均入居率</small><strong>70.8%</strong></div>
+            <div class="stat-item"><small>客付け広告料</small><strong>AD 100-200%</strong></div>
+        </div>
+        <p><a href="https://script.google.com/macros/s/AKfycbx6S5FQ8urn36_e-NRwcUXiiT9-C_2miJV9Jti2Lj3Y-z_i35_bsdhmyrSkxBAGsP8n/exec" class="btn">OKFスプレッドシート（リアルタイム在庫管理）</a></p>
+    </section>
+    <div class="broker-banner">和歌山市・海南市・新宮市 空室募集・客付け条件一覧</div>
+    <main class="property-grid">
+        <!-- 乙井マンション -->
+        <div class="property-card">
+            <div class="card-img">[ 乙井マンション 外観写真 ]</div>
+            <div class="card-body">
+                <span class="badge">和歌山市手平</span>
+                <h3>乙井マンション</h3>
+                <p><small>和歌山県和歌山市手平5丁目12-5 | JR宮前駅 徒歩8分</small></p>
+                <p>7号室: <strong>34,000円</strong><br>18〜30号室: <strong>35,000円</strong></p>
+                <p><small>管理会社: 扇ハウス</small></p>
+                <button class="btn">資料請求</button>
             </div>
         </div>
-        <div class="metrics">
-            <div class="metric-card"><small>Total Units</small><br><strong>79</strong></div>
-            <div class="metric-card"><small>Vacant</small><br><strong>--</strong></div>
-            <div class="metric-card"><small>Applied</small><br><strong>--</strong></div>
-            <div class="metric-card"><small>Occupancy</small><br><strong>--%</strong></div>
+        <!-- 北嶋マンション -->
+        <div class="property-card">
+            <div class="card-img">[ 北嶋マンション 外観写真 ]</div>
+            <div class="card-body">
+                <span class="badge">新宮市三輪崎</span> <span class="ad-pill">AD 200%</span>
+                <h3>北嶋マンション</h3>
+                <p><small>和歌山県新宮市三輪崎2丁目3-16 | JR三輪崎駅 徒歩5分</small></p>
+                <p>101・102号室: <strong>35,000円</strong> ★<br>405号室: <strong>35,000円</strong></p>
+                <p><small>管理会社: ストーリー</small></p>
+                <button class="btn">資料請求</button>
+            </div>
         </div>
-    </section>
-    <section class="broker-hero">
-        <h1>Broker Exclusive: AD 100%-200%</h1>
-        <p>敷金礼金0円 (0/0) | 全物件 内見即対応・即時精算</p>
-    </section>
-    <main class="property-grid">
-        <div class="property-card"><div class="card-content"><span class="status-badge status-vacant">即入居可</span><h3>Otui Mansion</h3><p>賃料: <strong>35,000円~</strong> <span class="ad-pill">AD 200%</span></p><p><small>#駐車場あり #法人可</small></p><button>Edit</button> <button>Keybox Request</button></div></div>
-        <div class="property-card"><div class="card-content"><span class="status-badge status-vacant">即入居可</span><h3>Kitajima Mansion</h3><p>賃料: <strong>35,000円~</strong> <span class="ad-pill">AD 200%</span></p><p><small>#駐車場あり #法人可</small></p><button>Edit</button> <button>Keybox Request</button></div></div>
-        <div class="property-card"><div class="card-content"><span class="status-badge status-vacant">即入居可</span><h3>Chuo Sunheights</h3><p>賃料: <strong>35,000円~</strong> <span class="ad-pill">AD 200%</span></p><p><small>#駐車場あり #法人可</small></p><button>Edit</button> <button>Keybox Request</button></div></div>
-        <div class="property-card"><div class="card-content"><span class="status-badge status-vacant">即入居可</span><h3>Plaisir Sekido</h3><p>賃料: <strong>35,000円~</strong> <span class="ad-pill">AD 200%</span></p><p><small>#駐車場あり #法人可</small></p><button>Edit</button> <button>Keybox Request</button></div></div>
-        <div class="property-card"><div class="card-content"><span class="status-badge status-vacant">即入居可</span><h3>Morimoto Mansion</h3><p>賃料: <strong>35,000円~</strong> <span class="ad-pill">AD 200%</span></p><p><small>#駐車場あり #法人可</small></p><button>Edit</button> <button>Keybox Request</button></div></div>
+        <!-- 中央サンハイツ -->
+        <div class="property-card">
+            <div class="card-img">[ 中央サンハイツ 外観写真 ]</div>
+            <div class="card-body">
+                <span class="badge">新宮市井の沢</span>
+                <h3>中央サンハイツ</h3>
+                <p><small>和歌山県新宮市井の沢6-7 | 新宮駅 車6分</small></p>
+                <p>1-C・1-D号室: <strong>35,000円</strong><br>A棟/B棟2階: <strong>38,000円</strong></p>
+                <p><small>管理会社: 三和ハウス</small></p>
+                <button class="btn">資料請求</button>
+            </div>
+        </div>
+        <!-- プレジール関戸 -->
+        <div class="property-card">
+            <div class="card-img">[ プレジール関戸 外観写真 ]</div>
+            <div class="card-body">
+                <span class="badge">和歌山市関戸</span>
+                <h3>プレジール関戸</h3>
+                <p><small>和歌山県和歌山市関戸5丁目1497-18 | バス関戸 徒歩3分</small></p>
+                <p>101号室: <strong>53,000円</strong><br><small>2LDK専用庭・P込</small></p>
+                <p><small>管理会社: ロックホーム</small></p>
+                <button class="btn">資料請求</button>
+            </div>
+        </div>
+        <!-- 森本マンション -->
+        <div class="property-card">
+            <div class="card-img">[ 森本マンション 外観写真 ]</div>
+            <div class="card-body">
+                <span class="badge">和歌山市毛見</span>
+                <h3>森本マンション</h3>
+                <p><small>和歌山県和歌山市毛見387-7 | マリーナシティ至近</small></p>
+                <p>2階西: <strong>40,000円</strong><br><small>1LDK角部屋・P有</small></p>
+                <p><small>管理会社: ロックホーム</small></p>
+                <button class="btn">資料請求</button>
+            </div>
+        </div>
     </main>
-    <footer style="padding: 40px 5%; background: #eee;">
-        <h3>Broker Inquiry &amp; Keybox Access</h3>
-        <p>電話: 090-5134-6744 / 090-9981-1903</p>
-        <p><small>&copy; 2026 株式会社マッコイ | 和歌山市中之島303-5</small></p>
-    </footer>
+<section class="footer-section">
+    <h3>賃貸仲介業者様 専用 物確・内見受付窓口</h3>
+    <p>直通電話: <strong>090-5134-6744</strong> / サブ: 090-9981-1903</p>
+    <p>メール: makkoi2344@gmail.com</p>
+    <div style="background:#f0f0f0; padding:15px; border-radius:8px; margin-top:10px;">
+        <p><strong>【物確文面コピー用】</strong><br>「〇〇マンションの空室確認と内見方法を教えてください」</p>
+    </div>
+    <p><a href="#" class="btn">Webフォームから問い合わせ</a></p>
+    <p><small>&copy; 2026 株式会社マッコイ | 和歌山市中之島303-5</small></p>
+</section>
 </body>
 </html>
 
