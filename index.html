@@ -1,123 +1,567 @@
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>株式会社マッコイ オーナー直営ポータル</title>
-    <style>
-        :root { --primary: #1a73e8; --accent: #b10202; --bg: #f4f7f6; --text: #333; }
-        body { font-family: 'Noto Sans JP', sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 0; line-height: 1.6; }
-        .header { background: #2c3e50; color: white; padding: 1.5rem 5%; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .top-banner { background: white; margin: 20px 5%; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 15px 0; }
-        .stat-item { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #e9ecef; }
-        .stat-item strong { display: block; font-size: 1.4rem; color: var(--primary); }
-        .broker-banner { background: linear-gradient(90deg, var(--accent), #d32f2f); color: white; padding: 20px 5%; margin: 20px 0; text-align: center; font-weight: bold; font-size: 1.2rem; }
-        .property-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; padding: 0 5% 40px; }
-        .property-card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 6px 12px rgba(0,0,0,0.08); border: 1px solid #eee; transition: transform 0.2s; }
-        .property-card:hover { transform: translateY(-5px); }
-        .card-img { width: 100%; height: 200px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.9rem; }
-        .card-body { padding: 20px; }
-        .badge { background: #e8f0fe; color: #1967d2; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        .ad-pill { background: var(--accent); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
-        .footer-section { background: #fff; padding: 40px 5%; border-top: 2px solid #eee; margin-top: 40px; }
-        .btn { background: var(--primary); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; display: inline-block; margin-top: 10px; border: none; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>株式会社マッコイ | 空室情報・仲介業者様向けポータル</title>
+  <meta name="description" content="株式会社マッコイのリアルタイム空室・入居条件確認ポータル。和歌山・新宮エリアの空室、AD条件、保証会社・特約資料を掲載。">
+  
+  <style>
+    :root {
+      --primary: #1b365d;
+      --primary-hover: #12243f;
+      --accent: #d97706;
+      --danger: #dc2626;
+      --success: #059669;
+      --info: #2563eb;
+      --bg-gray: #f8fafc;
+      --border: #e2e8f0;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", sans-serif;
+      background-color: var(--bg-gray);
+      color: #1e293b;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    
+    .top-notice-bar {
+      background-color: #0f172a;
+      color: #f1f5f9;
+      font-size: 0.85rem;
+      padding: 8px 16px;
+      text-align: center;
+      font-weight: 600;
+    }
+    .top-notice-bar span { color: #fbbf24; }
+
+    header {
+      background-color: #ffffff;
+      border-bottom: 3px solid var(--primary);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .logo-area h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-area h1 span.sub {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #64748b;
+      border-left: 1px solid var(--border);
+      padding-left: 8px;
+    }
+    .header-tel {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: right;
+    }
+    .header-tel small { display: block; font-size: 0.75rem; color: #64748b; font-weight: normal; }
+
+    nav.main-nav { background-color: var(--primary); }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .nav-container a {
+      color: #ffffff;
+      padding: 12px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .nav-container a:hover, .nav-container a.active {
+      background-color: var(--primary-hover);
+      color: #fbbf24;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+    }
+    @media (max-width: 900px) { .container { grid-template-columns: 1fr; } }
+
+    .search-filter-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .filter-item select, .filter-item input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.85rem;
+      background-color: #fff;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .count-badge {
+      font-size: 0.85rem;
+      color: var(--primary);
+      background: #e0e7ff;
+      padding: 2px 10px;
+      border-radius: 9999px;
+    }
+
+    .property-grid { display: flex; flex-direction: column; gap: 16px; }
+    .property-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      transition: transform 0.2s;
+      position: relative;
+    }
+    .property-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    @media (max-width: 640px) { .property-card { grid-template-columns: 1fr; } }
+
+    .card-thumb {
+      position: relative;
+      background-color: #cbd5e1;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    
+    .status-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .status-now { background-color: var(--success); }
+    .status-held { background-color: var(--danger); animation: pulse 2s infinite; }
+    .status-retire { background-color: var(--info); }
+    .status-reform { background-color: #8b5cf6; }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .ad-pill-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: #b91c1c;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .card-body { padding: 16px; display: flex; flex-direction: column; justify-content: space-between; }
+    .card-title { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .card-address { font-size: 0.8rem; color: #64748b; }
+
+    .rent-highlight {
+      background: #f1f5f9;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 8px 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 12px;
+    }
+    .rent-main { font-size: 1.35rem; font-weight: 800; color: #b91c1c; }
+    .rent-main small { font-size: 0.85rem; color: #1e293b; font-weight: normal; }
+
+    .specs-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      font-size: 0.85rem;
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+    }
+    .specs-label { color: #64748b; width: 80px; display: inline-block; }
+    .specs-val { font-weight: 600; }
+
+    .card-footer-btns { display: flex; gap: 8px; margin-top: 10px; }
+    .btn-detail {
+      background-color: var(--primary);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      flex: 1;
+      border: none;
+    }
+    .btn-copy-url {
+      background-color: #fff;
+      border: 1px solid var(--border);
+      color: #64748b;
+      padding: 8px 12px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .sidebar-widget {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+    .widget-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--primary);
+    }
+    .widget-menu-list { list-style: none; }
+    .widget-menu-list li { border-bottom: 1px solid var(--border); }
+    .widget-menu-list a {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 4px;
+      font-size: 0.85rem;
+      color: #1e293b;
+    }
+
+    /* モーダル */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-content {
+      background: #fff;
+      border-radius: 8px;
+      max-width: 750px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 20px;
+    }
+    .detail-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.85rem; }
+    .detail-table th, .detail-table td { border: 1px solid var(--border); padding: 8px 12px; }
+    .detail-table th { background-color: #f1f5f9; width: 30%; color: #64748b; }
+
+    #toast {
+      position: fixed;
+      bottom: 70px; right: 20px;
+      background: #1e293b; color: #fff;
+      padding: 12px 20px; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 600;
+      display: none; z-index: 200;
+    }
+    #toast.show { display: block; }
+  </style>
 </head>
 <body>
-    <header class="header">
-        <h1>株式会社マッコイ オーナー直営ポータル</h1>
-    </header>
-    <section class="top-banner">
-        <h2>家賃・空室管理コントロールパネル</h2>
-        <div class="stats-grid">
-            <div class="stat-item"><small>総管理物件数</small><strong>12物件/79戸</strong></div>
-            <div class="stat-item"><small>現在募集中</small><strong>23室</strong></div>
-            <div class="stat-item"><small>平均入居率</small><strong>70.8%</strong></div>
-            <div class="stat-item"><small>客付け広告料</small><strong>AD 100-200%</strong></div>
-        </div>
-        <p><a href="https://script.google.com/macros/s/AKfycbx6S5FQ8urn36_e-NRwcUXiiT9-C_2miJV9Jti2Lj3Y-z_i35_bsdhmyrSkxBAGsP8n/exec" class="btn">OKFスプレッドシート（リアルタイム在庫管理）</a></p>
-    </section>
-    <div class="broker-banner">和歌山市・海南市・新宮市 空室募集・客付け条件一覧</div>
-    <main class="property-grid">
-        <!-- 乙井マンション -->
-        <div class="property-card">
-            <div class="card-img">[ 乙井マンション 外観写真 ]</div>
-            <div class="card-body">
-                <span class="badge">和歌山市手平</span>
-                <h3>乙井マンション</h3>
-                <p><small>和歌山県和歌山市手平5丁目12-5 | JR宮前駅 徒歩8分</small></p>
-                <p>7号室: <strong>34,000円</strong><br>18〜30号室: <strong>35,000円</strong></p>
-                <p><small>管理会社: 扇ハウス</small></p>
-                <button class="btn">資料請求</button>
-            </div>
-        </div>
-        <!-- 北嶋マンション -->
-        <div class="property-card">
-            <div class="card-img">[ 北嶋マンション 外観写真 ]</div>
-            <div class="card-body">
-                <span class="badge">新宮市三輪崎</span> <span class="ad-pill">AD 200%</span>
-                <h3>北嶋マンション</h3>
-                <p><small>和歌山県新宮市三輪崎2丁目3-16 | JR三輪崎駅 徒歩5分</small></p>
-                <p>101・102号室: <strong>35,000円</strong> ★<br>405号室: <strong>35,000円</strong></p>
-                <p><small>管理会社: ストーリー</small></p>
-                <button class="btn">資料請求</button>
-            </div>
-        </div>
-        <!-- 中央サンハイツ -->
-        <div class="property-card">
-            <div class="card-img">[ 中央サンハイツ 外観写真 ]</div>
-            <div class="card-body">
-                <span class="badge">新宮市井の沢</span>
-                <h3>中央サンハイツ</h3>
-                <p><small>和歌山県新宮市井の沢6-7 | 新宮駅 車6分</small></p>
-                <p>1-C・1-D号室: <strong>35,000円</strong><br>A棟/B棟2階: <strong>38,000円</strong></p>
-                <p><small>管理会社: 三和ハウス</small></p>
-                <button class="btn">資料請求</button>
-            </div>
-        </div>
-        <!-- プレジール関戸 -->
-        <div class="property-card">
-            <div class="card-img">[ プレジール関戸 外観写真 ]</div>
-            <div class="card-body">
-                <span class="badge">和歌山市関戸</span>
-                <h3>プレジール関戸</h3>
-                <p><small>和歌山県和歌山市関戸5丁目1497-18 | バス関戸 徒歩3分</small></p>
-                <p>101号室: <strong>53,000円</strong><br><small>2LDK専用庭・P込</small></p>
-                <p><small>管理会社: ロックホーム</small></p>
-                <button class="btn">資料請求</button>
-            </div>
-        </div>
-        <!-- 森本マンション -->
-        <div class="property-card">
-            <div class="card-img">[ 森本マンション 外観写真 ]</div>
-            <div class="card-body">
-                <span class="badge">和歌山市毛見</span>
-                <h3>森本マンション</h3>
-                <p><small>和歌山県和歌山市毛見387-7 | マリーナシティ至近</small></p>
-                <p>2階西: <strong>40,000円</strong><br><small>1LDK角部屋・P有</small></p>
-                <p><small>管理会社: ロックホーム</small></p>
-                <button class="btn">資料請求</button>
-            </div>
-        </div>
-    </main>
-<section class="footer-section">
-    <h3>賃貸仲介業者様 専用 物確・内見受付窓口</h3>
-    <p>直通電話: <strong>090-5134-6744</strong> / サブ: 090-9981-1903</p>
-    <p>メール: makkoi2344@gmail.com</p>
-    <div style="background:#f0f0f0; padding:15px; border-radius:8px; margin-top:10px;">
-        <p><strong>【物確文面コピー用】</strong><br>「〇〇マンションの空室確認と内見方法を教えてください」</p>
+
+  <div class="top-notice-bar">
+    【仲介会社・管理会社様】リアルタイム空室・客付け条件公開中（電話確認不要・即時部屋止め反映）
+  </div>
+
+  <header>
+    <div class="header-container">
+      <div class="logo-area">
+        <a href="#">
+          <h1>株式会社マッコイ <span class="sub">空室情報・物確ポータル</span></h1>
+        </a>
+      </div>
+      <div class="header-tel">
+        <div>客付け直通窓口</div>
+        <small>管理会社各社様にて直接内覧・申込手配可能です</small>
+      </div>
     </div>
-    <p><a href="#" class="btn">Webフォームから問い合わせ</a></p>
-    <p><small>&copy; 2026 株式会社マッコイ | 和歌山市中之島303-5</small></p>
-</section>
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="#" class="active" onclick="filterByStatus('all')">全物件・全室</a>
+        <a href="#" onclick="filterByStatus('now')">即入居可</a>
+        <a href="#" onclick="filterByStatus('held')">部屋止め（商談中）</a>
+        <a href="#" onclick="filterByStatus('retire')">退去予定</a>
+        <a href="#docs">保証会社・特約資料ダウンロード</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="main-column">
+      
+      <!-- 検索カード -->
+      <div class="search-filter-card">
+        <div class="filter-grid">
+          <div class="filter-item">
+            <select id="sel-area" onchange="renderList()">
+              <option value="">全エリア</option>
+              <option value="和歌山市">和歌山市</option>
+              <option value="海南市">海南市</option>
+              <option value="新宮市">新宮市</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <select id="sel-status" onchange="renderList()">
+              <option value="">全ステータス</option>
+              <option value="now">即入居可のみ</option>
+              <option value="held">部屋止めのみ</option>
+            </select>
+          </div>
+          <div class="filter-item">
+            <input type="text" id="ipt-keyword" placeholder="物件名・号室・条件で検索" oninput="renderList()">
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">
+        <span id="heading-title">募集部屋一覧（リアルタイム反映）</span>
+        <span class="count-badge" id="room-count">読み込み中...</span>
+      </div>
+
+      <div class="property-grid" id="property-list">
+        <div style="text-align:center; padding:40px; color:#64748b;">スプレッドシートより最新データを取得しています...</div>
+      </div>
+
+    </div>
+
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <div class="sidebar-widget">
+        <div class="widget-title">📢 仲介会社様へのお知らせ</div>
+        <p style="font-size:0.85rem; color:#475569; line-height:1.6;">
+          本サイトの「部屋止め」表示はリアルタイムに更新されています。<br><br>
+          <strong>「部屋止め」表記の部屋は先行申込あり</strong>となります。二重案内防止にご協力をお願いいたします。<br><br>
+          客付けAD条件（100%〜200%）は即日適用可能です。
+        </p>
+      </div>
+
+      <div class="sidebar-widget">
+        <div class="widget-title">📄 書類ダウンロード</div>
+        <ul class="widget-menu-list">
+          <li><a href="#">いえらぶ安心保証 申込書 (PDF)</a></li>
+          <li><a href="#">K-net（近畿一棟保証）申込書 (PDF)</a></li>
+          <li><a href="#">重説・契約書 必須特約条項 (テキスト)</a></li>
+        </ul>
+      </div>
+    </aside>
+  </main>
+
+  <!-- 物件詳細モーダル -->
+  <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+    <div class="modal-content">
+      <h2 id="m-title" style="color:var(--primary); margin-bottom:8px;"></h2>
+      <div id="m-rent-box" class="rent-highlight"></div>
+      
+      <table class="detail-table">
+        <tr><th>物件名・号室</th><td id="m-prop-room"></td></tr>
+        <tr><th>所在地</th><td id="m-address"></td></tr>
+        <tr><th>間取り</th><td id="m-layout"></td></tr>
+        <tr><th>客付け広告料</th><td id="m-ad" style="font-weight:700; color:#b91c1c;"></td></tr>
+        <tr><th>入居ステータス</th><td id="m-status"></td></tr>
+        <tr><th>担当管理会社</th><td id="m-manager" style="font-weight:700; color:var(--primary);"></td></tr>
+        <tr><th>管理会社連絡先</th><td id="m-manager-tel"></td></tr>
+        <tr><th>備考・設備</th><td id="m-notes"></td></tr>
+      </table>
+
+      <div style="text-align:center; margin-top:20px;">
+        <button class="btn-detail" style="width:200px;" onclick="closeModal()">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">📋 URLをコピーしました</div>
+
+  <script>
+    // ★★★ Google Apps Script の公開ウェブアプリURL ★★★
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzBPovKaGt37cby4WbspAHChoguy03tYYQ-f54OJry7EaGqf2nBKVzyzFg1b90C4rYy/exec";
+
+    // フォールバック用初期データ（API通信前の表示およびバックアップ）
+    let properties = [
+      { id: 1, property: "乙井マンション", room: "7号室", area: "和歌山市", address: "和歌山市手平5丁目12-5", layout: "2K (33㎡)", rent: 34000, fee: 0, ad: "AD 100%", status: "now", statusText: "即入居可", manager: "扇ハウス株式会社", managerTel: "073-499-4448", notes: "内装美装済、エアコン、温水便座、ネット無料" },
+      { id: 2, property: "乙井マンション", room: "18号室", area: "和歌山市", address: "和歌山市手平5丁目12-5", layout: "2K (33㎡)", rent: 35000, fee: 0, ad: "AD 100%", status: "held", statusText: "部屋止め（申込あり）", manager: "扇ハウス株式会社", managerTel: "073-499-4448", notes: "一番手審査中" },
+      { id: 3, property: "北嶋マンション", room: "101号室", area: "新宮市", address: "新宮市三輪崎二丁目3-16", layout: "2DK (42㎡)", rent: 35000, fee: 2000, ad: "AD 200%", status: "now", statusText: "即入居可", manager: "株式会社ストーリー", managerTel: "073-XXX-XXXX", notes: "高ADキャンペーン中！外壁塗装済" },
+      { id: 4, property: "中央サンハイツ", room: "1-C号室", area: "新宮市", address: "新宮市井の沢6-7", layout: "2DK (38㎡)", rent: 35000, fee: 2000, ad: "AD 100%", status: "now", statusText: "即入居可", manager: "三和ハウス", managerTel: "0735-XX-XXXX", notes: "敷金礼金0ゼロ物件" },
+      { id: 5, property: "プレジール関戸", room: "101号室", area: "和歌山市", address: "和歌山市関戸5丁目", layout: "2LDK (58㎡)", rent: 53000, fee: 0, ad: "AD 100%", status: "now", statusText: "即入居可", manager: "ロックホーム", managerTel: "073-XXX-XXXX", notes: "専用庭付・駐車場込" }
+    ];
+
+    // APIからリアルタイムデータを取得
+    async function fetchLiveData() {
+      try {
+        const res = await fetch(GAS_API_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            properties = data;
+          }
+        }
+      } catch (err) {
+        console.warn("GAS API取得失敗。ローカルキャッシュを表示します:", err);
+      }
+      renderList();
+    }
+
+    function renderList() {
+      const area = document.getElementById('sel-area').value;
+      const status = document.getElementById('sel-status').value;
+      const kw = document.getElementById('ipt-keyword').value.trim().toLowerCase();
+      const container = document.getElementById('property-list');
+
+      const filtered = properties.filter(p => {
+        if (area && !p.area.includes(area)) return false;
+        if (status && p.status !== status) return false;
+        if (kw) {
+          const str = (p.property + p.room + p.address + p.notes + p.ad).toLowerCase();
+          if (!str.includes(kw)) return false;
+        }
+        return true;
+      });
+
+      document.getElementById('room-count').textContent = `募集・管理：${filtered.length}室`;
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = '<div style="background:#fff; padding:30px; text-align:center;">該当する部屋がありません。</div>';
+        return;
+      }
+
+      filtered.forEach(p => {
+        const isHeld = p.status === 'held';
+        const card = document.createElement('div');
+        card.className = 'property-card';
+        card.innerHTML = `
+          <div class="card-thumb">
+            <div style="font-size:2rem; color:#94a3b8;">🏢</div>
+            <div class="status-badge ${isHeld ? 'status-held' : 'status-now'}">${p.statusText}</div>
+            ${p.ad ? `<div class="ad-pill-badge">${p.ad}</div>` : ''}
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="card-title">${p.property} ${p.room}</div>
+              <div class="card-address">📍 ${p.address}</div>
+              <div class="rent-highlight">
+                <div class="rent-main">${Number(p.rent).toLocaleString()}円 <small>(共益費: ${Number(p.fee).toLocaleString()}円)</small></div>
+                <div style="font-size:0.85rem; font-weight:700; color:#b91c1c;">${p.ad || ''}</div>
+              </div>
+              <div class="specs-list">
+                <div><span class="specs-label">間取り</span><span class="specs-val">${p.layout}</span></div>
+                <div><span class="specs-label">管理会社</span><span class="specs-val">${p.manager}</span></div>
+              </div>
+            </div>
+            <div class="card-footer-btns">
+              <button class="btn-detail" onclick="openDetail(${p.id})">入居条件・管理会社連絡先</button>
+              <button class="btn-copy-url" onclick="copyUrl('${p.property} ${p.room}')">URLコピー</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function openDetail(id) {
+      const p = properties.find(x => x.id == id);
+      if (!p) return;
+      document.getElementById('m-title').textContent = `${p.property} ${p.room}`;
+      document.getElementById('m-rent-box').innerHTML = `
+        <span style="font-size:1.4rem; font-weight:800; color:#b91c1c;">${Number(p.rent).toLocaleString()}円</span>
+        <span style="font-size:0.9rem;">(共益費: ${Number(p.fee).toLocaleString()}円)</span>
+        <span style="margin-left:12px; font-weight:700; color:#b91c1c;">${p.ad || ''}</span>
+      `;
+      document.getElementById('m-prop-room').textContent = `${p.property} ${p.room}`;
+      document.getElementById('m-address').textContent = p.address;
+      document.getElementById('m-layout').textContent = p.layout;
+      document.getElementById('m-ad').textContent = p.ad || '要確認';
+      document.getElementById('m-status').textContent = p.statusText;
+      document.getElementById('m-manager').textContent = p.manager;
+      document.getElementById('m-manager-tel').textContent = p.managerTel || '直通窓口へ';
+      document.getElementById('m-notes').textContent = p.notes;
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+
+    function copyUrl(text) {
+      navigator.clipboard.writeText(`${text} | 株式会社マッコイ 空室情報\n${window.location.href}`).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2000);
+      });
+    }
+
+    function filterByStatus(st) {
+      document.getElementById('sel-status').value = (st === 'all' ? '' : st);
+      renderList();
+    }
+
+    window.addEventListener('DOMContentLoaded', fetchLiveData);
+  </script>
 </body>
 </html>
-
-
